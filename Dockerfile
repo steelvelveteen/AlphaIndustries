@@ -5,22 +5,27 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 # Copy the solution file and restore the dependencies
-COPY ["Alpha.sln", "./"]
-COPY ["src/Alpha.API/Alpha.API.csproj", "src/Alpha.API/"]
-COPY ["src/Alpha.Domain/Alpha.Domain.csproj", "src/Alpha.Domain/"]
-COPY ["src/Alpha.Infrastructure/Alpha.Infrastructure.csproj", "src/Alpha.Infrastructure/"]
-COPY ["src/Alpha.Application/Alpha.Application.csproj", "src/Alpha.Application/"]
-COPY ["tests/Alpha.Tests/Alpha.Tests.csproj", "tests/Alpha.Tests/"]
-RUN dotnet restore "Alpha.sln"
+COPY ["AlphaIndustries.sln", "./"]
+COPY ["src/AlphaIndustries.API/AlphaIndustries.API.csproj", "src/AlphaIndustries.API/"]
+COPY ["src/AlphaIndustries.Domain/AlphaIndustries.Domain.csproj", "src/AlphaIndustries.Domain/"]
+COPY ["src/AlphaIndustries.Infrastructure/AlphaIndustries.Infrastructure.csproj", "src/AlphaIndustries.Infrastructure/"]
+COPY ["src/AlphaIndustries.Application/AlphaIndustries.Application.csproj", "src/AlphaIndustries.Application/"]
+COPY ["tests/AlphaIndustries.API.Tests/AlphaIndustries.API.Tests.csproj", "tests/AlphaIndustries.API.Tests/"]
+COPY ["tests/AlphaIndustries.Domain.Tests/AlphaIndustries.Domain.Tests.csproj", "tests/AlphaIndustries.Domain.Tests/"]
+COPY ["tests/AlphaIndustries.Application.Tests/AlphaIndustries.Application.Tests.csproj", "tests/AlphaIndustries.Application.Tests/"]
+COPY ["tests/AlphaIndustries.Infrastucture.Tests/AlphaIndustries.Infrastucture.Tests.csproj", "tests/AlphaIndustries.Infrastucture.Tests/"]
+COPY ["tests/AlphaIndustries.Integration.Tests/AlphaIndustries.Integration.Tests.csproj", "tests/AlphaIndustries.Integration.Tests/"]
+
+RUN dotnet restore "AlphaIndustries.sln"
 
 # Copy the rest of the source code
 COPY . .
 
 # Build the entire solution
-RUN dotnet build "Alpha.sln" -c Release -o /app/build
+RUN dotnet build "AlphaIndustries.sln" -c Release -o /app/build
 
 # Publish the Web API project
-RUN dotnet publish "src/Alpha.API/Alpha.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "src/AlphaIndustries.API/AlphaIndustries.API.csproj" -c Release -o /app/publish
 
 # Use the official .NET runtime image as the final stage
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
@@ -36,4 +41,4 @@ EXPOSE 80
 EXPOSE 443
 
 # Set the entrypoint for the application
-ENTRYPOINT ["dotnet", "Alpha.API.dll"]
+ENTRYPOINT ["dotnet", "AlphaIndustries.API.dll"]

@@ -7,8 +7,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: my-dotnet-api
-    container_name: my-dotnet-api-container
+    image: alpha-industries-api
+    container_name: alpha-industries-api-container
     ports:
       - "8080:80"
     depends_on:
@@ -16,9 +16,9 @@ services:
 
   alpha_db:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
-    container_name: my-mssql-server-container
+    container_name: alpha-industries-server-container
     environment:
-      SA_PASSWORD: "YourStrongPassword!"
+      SA_PASSWORD: "areallystupidpassword321"
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
