@@ -1,6 +1,5 @@
+using MediatR;
 using Serilog;
-using Serilog.Events;
-using Serilog.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMediatR(typeof(Program));
 
-// // Serilog
-// builder.Host.UseSerilog((ctx, lc) =>
-// 	lc.WriteTo.Console()
-// );V
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
