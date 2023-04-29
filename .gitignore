@@ -343,3 +343,4 @@ healthchecksdb
 
 # Don't track the test database
 test.db
+mssql/data
